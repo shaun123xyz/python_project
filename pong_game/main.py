@@ -32,6 +32,8 @@ while game_on:
     screen.update()
     ball.move()
 
+    if abs(ball.ycor()) > 280:
+        ball.bounce()
 
 
 
