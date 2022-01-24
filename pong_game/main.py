@@ -32,8 +32,14 @@ while game_on:
     screen.update()
     ball.move()
 
+    # Collision with the walls
     if abs(ball.ycor()) > 280:
-        ball.bounce()
+        ball.wall_bounce()
+        
+    # collosion with Bat
+    if (ball.distance(right_bat) < 50 and ball.xcor() > 320) or (ball.distance(left_bat) < 50 and ball.xcor() > -320):
+           ball.bat_bounce()
+           
 
 
 
