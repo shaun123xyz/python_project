@@ -1,5 +1,6 @@
 from turtle import Screen, Turtle
 from bat import Bat
+from ball import Ball
 
 # Setup the Screen
 screen = Screen()
@@ -11,7 +12,7 @@ screen.tracer(0)
 # Have two bat on screen
 left_bat = Bat(-350,0)
 right_bat = Bat(350,0)
-
+ball = Ball()
 
 
 
