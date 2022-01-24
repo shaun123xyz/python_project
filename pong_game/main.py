@@ -2,6 +2,7 @@ from turtle import Screen, Turtle
 from bat import Bat
 from ball import Ball
 
+
 # Setup the Screen
 screen = Screen()
 screen.setup(width=800, height=600)
@@ -29,6 +30,7 @@ screen.onkey(right_bat.down, "Down")
 game_on = True
 while game_on:
     screen.update()
+    ball.move()
 
 
 
