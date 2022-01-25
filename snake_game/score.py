@@ -1,4 +1,5 @@
 from turtle import Turtle
+import time
 ALIGNMENT = "center"
 
 
@@ -18,6 +19,7 @@ class Score(Turtle):
 
     def update_scoreboard(self):
         self.clear()
+        self.goto(0, 270)
         self.write(f"Score: {self.score} Highest Score: {self.highest_score}", align=ALIGNMENT, font=("Courier", 24, "normal"))
 
     def game_over(self):
@@ -27,9 +29,13 @@ class Score(Turtle):
                 data.write(f"{self.highest_score}")
         self.update_scoreboard()
         self.goto(0, 0)
-        self.write(f"GAME OVER! Your final score:{self.score}", align=ALIGNMENT, font=("Courier", 16, "normal"))
-        
+        self.write(f"GAME OVER! Your final score:{self.score}, Highest Score: {self.highest_score}", align=ALIGNMENT, font=("Courier", 14, "normal"))
+        time.sleep(3)
+        self.score = 0
+        self.update_scoreboard()
 
+        
+        
     def increase_score(self):
         self.score += 1
         self.clear()
