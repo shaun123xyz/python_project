@@ -17,15 +17,18 @@ class Score(Turtle):
         self.update_scoreboard()
 
     def update_scoreboard(self):
-        self.write(f"Score: {self.score}", align=ALIGNMENT, font=("Courier", 24, "normal"))
+        self.clear()
+        self.write(f"Score: {self.score} Highest Score: {self.highest_score}", align=ALIGNMENT, font=("Courier", 24, "normal"))
 
     def game_over(self):
-        if self.score > self.high_score:
-            self.high_score = self.score
-            with open("data.txt", mode="w") as data:
-                data.write(f"{self.high_score}")
+        if self.score > self.highest_score:
+            self.highest_score = self.score
+            with open("highest_score.txt", mode="w") as data:
+                data.write(f"{self.highest_score}")
+        self.update_scoreboard()
         self.goto(0, 0)
         self.write(f"GAME OVER! Your final score:{self.score}", align=ALIGNMENT, font=("Courier", 16, "normal"))
+        
 
     def increase_score(self):
         self.score += 1
