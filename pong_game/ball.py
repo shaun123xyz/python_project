@@ -1,5 +1,5 @@
 from turtle import Turtle
-
+import random
 
 class Ball(Turtle):
      
@@ -24,9 +24,19 @@ class Ball(Turtle):
     #bounce off the bat
     def bat_bounce(self):
         self.x_move *= -1
-        self.x_move += 0.05
-        self.y_move += 0.05
+        if self.x_move > 0:
+            self.x_move += 0.05
+        else:
+            self.x_move -= 0.05
+        if self.y_move > 0:
+            self.y_move += 0.05
+        else:
+            self.y_move -= 0.05
         
     #reset the ball position    
-    def reset(self):
+    def reset_p(self):
         self.goto(0, 0)
+        self.x_move = random.choice((0.1, -0.1))
+        self.y_move = random.choice((0.1, -0.1))
+        
+        

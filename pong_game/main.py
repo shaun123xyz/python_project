@@ -44,13 +44,13 @@ while game_on:
 
     #Detect right player misses the ball
     if ball.xcor() > 380:
-        ball.reset()
+        ball.reset_p()
         score.left_point()
 
 
     #Detect left player misses the ball
     if ball.xcor() < -380:
-        ball.reset()
+        ball.reset_p()
         score.right_point()
        
 
