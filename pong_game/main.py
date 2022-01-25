@@ -1,7 +1,7 @@
 from turtle import Screen, Turtle
 from bat import Bat
 from ball import Ball
-
+from score import Score
 
 # Setup the Screen
 screen = Screen()
@@ -14,6 +14,7 @@ screen.tracer(0)
 left_bat = Bat(-350,0)
 right_bat = Bat(350,0)
 ball = Ball()
+score = Score()
 
 
 
@@ -37,9 +38,21 @@ while game_on:
         ball.wall_bounce()
         
     # collosion with Bat
-    if (ball.distance(right_bat) < 50 and ball.xcor() > 320) or (ball.distance(left_bat) < 50 and ball.xcor() > -320):
+    if (ball.distance(right_bat) < 50 and ball.xcor() > 320) or (ball.distance(left_bat) < 50 and ball.xcor() < -320):
            ball.bat_bounce()
            
+
+    #Detect right player misses the ball
+    if ball.xcor() > 380:
+        ball.reset()
+        score.left_point()
+
+
+    #Detect left player misses the ball
+    if ball.xcor() < -380:
+        ball.reset()
+        score.right_point()
+       
 
 
 
