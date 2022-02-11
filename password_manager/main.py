@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import string
+#pip install pyperclip
+import pyperclip
 
 
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
@@ -14,6 +16,7 @@ def create_password():
     random.shuffle(password)
     password = "".join(password)
     password_entry.insert(0, password)
+    pyperclip.copy(password)
     
 
 
