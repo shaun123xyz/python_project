@@ -60,9 +60,29 @@ def add_password():
                     json.dump(data, data_file, indent=4)
             finally:
                 website_entry.delete(0, END)
+                email_entry.delete(0, END)
                 password_entry.delete(0, END)
 
-
+def search():
+    website = website_entry.get()
+    email = email_entry.get()
+    
+    try:
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="You have't saved any password yet")
+    else:
+        if website in data and email == data[website]["email"]:
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Password: {password}")
+        elif len(website) == 0 or len(email) == 0:
+            messagebox.showinfo(title="Oops", message="Please enter the website and email for the password you want to search")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {website} and {email}.")
+            
+            
+            
   
 window = Tk()
 window.title("Password Manager")
@@ -80,7 +100,7 @@ password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
 #Entries
-website_entry = Entry(width=35)
+website_entry = Entry(width=26)
 website_entry.grid(row=1, column=1, columnspan=2, sticky="EW")
 website_entry.focus()
 email_entry = Entry(width=35)
@@ -94,6 +114,8 @@ generate_password_button = Button(text="Generate Password", command=create_passw
 generate_password_button.grid(row=3, column=2, sticky="EW")
 add_button = Button(text="Add", width=36, command=add_password)
 add_button.grid(row=4, column=1, columnspan=2, sticky="EW")
+search_button = Button(text="Search", width=13, command=search)
+search_button.grid(row=1, column=2, sticky="EW")
 
 window.mainloop()
 
