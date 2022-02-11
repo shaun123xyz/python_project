@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import string
+import json
+
 #pip install pyperclip
 import pyperclip
 
@@ -21,10 +23,16 @@ def create_password():
 
 
 def add_password():
-
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
+    
+    new_data = {
+        website: {
+            "email": email,
+            "password": password,
+        }
+    }
 
     if len(website) == 0:
         messagebox.showinfo(title="Oops", message="Please make sure you have entered the website")
@@ -36,8 +44,21 @@ def add_password():
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nWebsite: {website}\nEmail: {email} "
                                                       f"\nPassword: {password} \nIs it ok to save?")
         if is_ok:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {email} | {password}\n")
+            try:
+                with open("data.json", "r") as data_file:
+                    #Reading old data
+                    data = json.load(data_file)
+            except FileNotFoundError:
+                with open("data.json", "w") as data_file:
+                    json.dump(new_data, data_file, indent=4)
+            else:
+                #Updating old data with new data
+                data.update(new_data)
+
+                with open("data.json", "w") as data_file:
+                    #Saving updated data
+                    json.dump(data, data_file, indent=4)
+            finally:
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
 
