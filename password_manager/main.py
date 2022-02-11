@@ -1,3 +1,4 @@
+from multiprocessing.spawn import old_main_modules
 from tkinter import *
 from tkinter import messagebox
 import random
@@ -52,12 +53,20 @@ def add_password():
                 with open("data.json", "w") as data_file:
                     json.dump(new_data, data_file, indent=4)
             else:
-                #Updating old data with new data
-                data.update(new_data)
+                if website in data and email == data[website]["email"]:
+                    replace_password = messagebox.askokcancel(title="Oops", message="A password has already been saved under this website and emila\n"
+                                                                f"Do you want to replace it with this new password? ")
+                    if replace_password:
+                        data[website]["password"] = password
+                        with open("data.json", "w") as data_file:
+                            json.dump(data, data_file, indent=4)
+                else:
+                    #Updating old data with new data
+                    data.update(new_data)
 
-                with open("data.json", "w") as data_file:
-                    #Saving updated data
-                    json.dump(data, data_file, indent=4)
+                    with open("data.json", "w") as data_file:
+                        #Saving updated data
+                        json.dump(data, data_file, indent=4)
             finally:
                 website_entry.delete(0, END)
                 email_entry.delete(0, END)
